@@ -12,7 +12,7 @@ runs:
   - name: Build cypher node
     run: |
       dotnet publish cypnode --configuration Release --self-contained -r win-x64 -p:PublishReadyToRun=true --output publish\cypnode\win-x64
-      Copy-Item 'publish\cypnode\win-x64' -Destination 'install\windows\cypnode_installer\node_x64_installation_files'
+      copy-Item -path 'publish\cypnode\win-x64' -destination 'install\windows\cypnode_installer\node_x64_installation_files' -verbose
     shell: powershell
 
   - name: Harvest cypher node files
