@@ -11,11 +11,9 @@ runs:
       Copy-Item 'publish\cypnode\win-x64' -Destination 'install\windows\cypnode_installer\node_x64_installation_files'
     shell: powershell
 
-# Xcopy /E /I publish\cypnode\win-x64 install\windows\cypnode_installer\node_x64_installation_files
-
-  # - name: Harvest cypher node files
-  #   run: heat.exe dir install/windows/cypnode_installer/node_x64_installation_files -dr Node -cg NodeInstallationFilesGroup -gg -g1 -sf -srd -var "var.NodeInstallationDirectory" -out install/windows/cypnode_installer/node_installation_files.wxs
-  #   shell: cmd
+  - name: Harvest cypher node files
+    run: heat.exe dir install/windows/cypnode_installer/node_x64_installation_files -dr Node -cg NodeInstallationFilesGroup -gg -g1 -sf -srd -var "var.NodeInstallationDirectory" -out install/windows/cypnode_installer/node_installation_files.wxs
+    shell: cmd
 
 
   # - name: Build cypher service
