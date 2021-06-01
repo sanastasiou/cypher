@@ -13,7 +13,7 @@ runs:
     run: |
       dotnet publish cypnode --configuration Release --self-contained -r win-x64 -p:PublishReadyToRun=true
       new-item -Path 'install\windows\cypnode_installer\node_x64_installation_files' -ItemType Directory
-      copy-item -path 'cypnode\bin\Release\net5.0\win-x64\publish\**' -destination 'install\windows\cypnode_installer\node_x64_installation_files'
+      copy-item -path 'cypnode\bin\Release\net5.0\win-x64\publish\**' -destination 'install\windows\cypnode_installer\node_x64_installation_files' -recurse
     shell: powershell
 
   - name: Harvest cypher node files
@@ -25,7 +25,7 @@ runs:
     run: |
       dotnet publish install/windows/service --configuration Release --self-contained -r win-x64 -p:PublishReadyToRun=true
       new-item -Path 'install\windows\cypnode_installer\service' -ItemType Directory
-      copy-item -path 'install\windows\service\bin\Release\net5.0\win-x64\publish\**' -destination 'install\windows\cypnode_installer\service'
+      copy-item -path 'install\windows\service\bin\Release\net5.0\win-x64\publish\**' -destination 'install\windows\cypnode_installer\service' -recurse
     shell: powershell
 
   - name: Harvest cypher service files
