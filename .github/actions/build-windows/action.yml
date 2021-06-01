@@ -23,25 +23,14 @@ runs:
   - name: Build cypher service
     run: |
       dotnet publish install/windows/service --configuration Release --self-contained -r win-x64 -p:PublishReadyToRun=true
-      copy-Item -path 'install\windows\service\bin\Release\net5.0\win-x64\publish\**' -destination 'install/windows/cypnode_installer/service'
+      copy-Item -path 'install\windows\service\bin\Release\net5.0\win-x64\publish\**' -destination 'install/windows/cypnode_installer/service' -verbose
     shell: powershell
 
   - name: Harvest cypher service files
     run: heat.exe dir install/windows/cypnode_installer/service -dr Node -cg ServiceInstallationFilesGroup -gg -g1 -sf -sreg -var "var.ServiceInstallationDirectory" -t install/windows/cypnode_installer/remove_exe.xslt  -out install/windows/cypnode_installer/service_installation_files.wxs
     shell: cmd
 
-#  - name: Package deb
-#    run: |
-#      cp -r install/linux/debian .
-#
-#      sed -i 's/\$RUNTIME/${{ inputs.runtime }}/g'                 ./debian/rules
-#      sed -i "s/\$VERSION/$VERSION/g"                              ./debian/changelog
-#      sed -i "s/\$TIMESTAMP/$(date +"%a, %d %b %Y %H:%M:%S %z")/g" ./debian/changelog
-#
-#      dpkg-buildpackage -b --no-sign -a ${{ inputs.runtime_deb }}
-#
-#      sha256sum ../cypher-cypnode_${{ env.VERSION }}_${{ inputs.runtime_deb }}.deb > ../cypher-cypnode_${{ env.VERSION }}_${{ inputs.runtime_deb }}.deb.sha256
-#
-#      mv ../*.deb        ${{ github.workspace }}
-#      mv ../*.deb.sha256 ${{ github.workspace }}
-#    shell: bash
+
+#C:\Program Files (x86)\WiX Toolset v3.11\bin\candle.exe -wx -dNodeInstallationDirectory=node_x64_installation_files -dServiceInstallationDirectory=service -d"DevEnvDir=C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\\" -dSolutionDir=C:\Work\tangram\core\install\windows\ -dSolutionExt=.sln -dSolutionFileName=cypher_node_installer.sln -dSolutionName=cypher_node_installer -dSolutionPath=C:\Work\tangram\core\install\windows\cypher_node_installer.sln -dConfiguration=Release -dOutDir=bin\x64\Release\ -dPlatform=x64 -dProjectDir=C:\Work\tangram\core\install\windows\cypnode_installer\ -dProjectExt=.wixproj -dProjectFileName=cypher_node_installer.wixproj -dProjectName=cypher_node_installer -dProjectPath=C:\Work\tangram\core\install\windows\cypnode_installer\cypher_node_installer.wixproj -dTargetDir=C:\Work\tangram\core\install\windows\cypnode_installer\bin\x64\Release\ -dTargetExt=.msi -dTargetFileName=cypher_node_installer.msi -dTargetName=cypher_node_installer -dTargetPath=C:\Work\tangram\core\install\windows\cypnode_installer\bin\x64\Release\cypher_node_installer.msi -out obj\x64\Release\ -pedantic -arch x64 -ext "C:\Program Files (x86)\WiX Toolset v3.11\bin\\WixUtilExtension.dll" -ext "C:\Program Files (x86)\WiX Toolset v3.11\bin\\WixUIExtension.dll" node_installation_files.wxs Product.wxs service_installation_files.wxs
+#C:\Program Files (x86)\WiX Toolset v3.11\bin\Light.exe -out C:\Work\tangram\core\install\windows\cypnode_installer\bin\x64\Release\cypher_node_installer.msi -pdbout C:\Work\tangram\core\install\windows\cypnode_installer\bin\x64\Release\cypher_node_installer.wixpdb -wx -cultures:null -ext "C:\Program Files (x86)\WiX Toolset v3.11\bin\\WixUtilExtension.dll" -ext "C:\Program Files (x86)\WiX Toolset v3.11\bin\\WixUIExtension.dll" -pedantic -contentsfile obj\x64\Release\cypher_node_installer.wixproj.BindContentsFileListnull.txt -outputsfile obj\x64\Release\cypher_node_installer.wixproj.BindOutputsFileListnull.txt -builtoutputsfile obj\x64\Release\cypher_node_installer.wixproj.BindBuiltOutputsFileListnull.txt -wixprojectfile C:\Work\tangram\core\install\windows\cypnode_installer\cypher_node_installer.wixproj obj\x64\Release\node_installation_files.wixobj obj\x64\Release\Product.wixobj obj\x64\Release\service_installation_files.wixobj
+#cypher_node_installer -> C:\Work\tangram\core\install\windows\cypnode_installer\bin\x64\Release\cypher_node_installer.msi
