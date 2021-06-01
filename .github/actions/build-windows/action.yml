@@ -23,7 +23,7 @@ runs:
   - name: Build cypher service
     run: |
       dotnet publish install/windows/service --configuration Release --self-contained -r win-x64 -p:PublishReadyToRun=true
-      copy-Item -path 'install\windows\service\bin\Release\net5.0\win-x64\publish' -destination 'install/windows/cypnode_installer/service'
+      copy-Item -path 'install\windows\service\bin\Release\net5.0\win-x64\publish\**' -destination 'install/windows/cypnode_installer/service'
     shell: powershell
 
   - name: Harvest cypher service files
