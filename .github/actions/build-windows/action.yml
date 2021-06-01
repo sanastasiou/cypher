@@ -39,5 +39,5 @@ runs:
     shell: cmd
 
   - name: Copy artifacts
-    run: mv install\windows\cypnode_installer\bin\x64\Release\cypher-cypnode_${{ env.VERSION }}.msi ${{ github.workspace }}
+    run: mv install/windows/cypnode_installer/bin/x64/Release/cypher-cypnode_${{ env.VERSION }}.msi ${{ github.workspace }}
     shell: bash
