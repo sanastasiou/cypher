@@ -5,7 +5,7 @@
   <?define Win64 = "yes" ?>
   <?endif ?>
   <!-- Full version number to display -->
-  <?define VersionNumber="!(bind.FileVersion.filEAED9D20F2CFC15D7672EE6A5EB4C686)" ?>
+  <?define VersionNumber="$(var.Version)" ?>
   <!--
    Upgrade code HAS to be the same for all updates.
    Once you've chosen it don't change it.
