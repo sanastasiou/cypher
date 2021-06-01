@@ -16,19 +16,19 @@ runs:
     shell: powershell
 
   - name: Harvest cypher node files
-    run: heat.exe dir install/windows/cypnode_installer/node_x64_installation_files -dr Node -cg NodeInstallationFilesGroup -gg -g1 -sf -srd -var "var.NodeInstallationDirectory" -out install/windows/cypnode_installer/node_installation_files.wxs
+    run: heat.exe dir install/windows/cypnode_installer/node_x64_installation_files -dr Node -cg NodeInstallationFilesGroup -gg -g1 -sf -srd -sreg -var "var.NodeInstallationDirectory" -out install/windows/cypnode_installer/node_installation_files.wxs
     shell: cmd
 
 
-  # - name: Build cypher service
-  #   run: |
-  #     dotnet publish install/windows/service --configuration Release --self-contained -r win-x64 -p:PublishReadyToRun=true --output publish/cypnode_service/win-x64
-  #     Xcopy /E /I publish/cypnode_service/win-x64 install/windows/cypnode_installer/service
-  #   shell: cmd
+  - name: Build cypher service
+    run: |
+      dotnet publish install/windows/service --configuration Release --self-contained -r win-x64 -p:PublishReadyToRun=true
+      copy-Item -path 'install\windows\service\bin\Release\net5.0\win-x64\publish' -destination 'install/windows/cypnode_installer/service'
+    shell: powershell
 
-  # - name: Harvest cypher node files
-  #   run: heat.exe dir install/windows/cypnode_installer/service -dr Node -cg ServiceInstallationFilesGroup -gg -g1 -sf -var "var.ServiceInstallationDirectory" -t install/windows/cypnode_installer/remove_exe.xslt  -out install/windows/cypnode_installer/service_installation_files.wxs
-  #   shell: cmd
+  - name: Harvest cypher service files
+    run: heat.exe dir install/windows/cypnode_installer/service -dr Node -cg ServiceInstallationFilesGroup -gg -g1 -sf -sreg -var "var.ServiceInstallationDirectory" -t install/windows/cypnode_installer/remove_exe.xslt  -out install/windows/cypnode_installer/service_installation_files.wxs
+    shell: cmd
 
 #  - name: Package deb
 #    run: |
