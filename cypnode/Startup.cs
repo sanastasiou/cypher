@@ -23,7 +23,7 @@ namespace CYPNode
     public class Startup
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="env"></param>
         /// <param name="configuration"></param>
@@ -50,10 +50,13 @@ namespace CYPNode
             services.AddOptions();
             services.Configure<PbftOptions>(Configuration);
             services.AddDataKeysProtection(Configuration);
+            services.AddRazorPages().AddRazorPagesOptions(options => {
+                options.RootDirectory = "/Dashboard";
+            });
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="builder"></param>
         public void ConfigureContainer(ContainerBuilder builder)
@@ -74,7 +77,7 @@ namespace CYPNode
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="app"></param>
         /// <param name="lifetime"></param>
@@ -92,6 +95,7 @@ namespace CYPNode
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapRazorPages();
             });
             app.UseSwagger()
                .UseSwaggerUI(c =>
