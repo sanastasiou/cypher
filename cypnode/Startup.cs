@@ -50,7 +50,8 @@ namespace CYPNode
             services.AddOptions();
             services.Configure<PbftOptions>(Configuration);
             services.AddDataKeysProtection(Configuration);
-            services.AddRazorPages().AddRazorPagesOptions(options => {
+            services.AddRazorPages().AddRazorPagesOptions(options =>
+            {
                 options.RootDirectory = "/Dashboard";
             });
         }
